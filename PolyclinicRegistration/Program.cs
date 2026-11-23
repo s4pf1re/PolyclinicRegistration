@@ -1,33 +1,26 @@
-using PolyclinicRegistration.Data;
-using PolyclinicRegistration.Services;
-using PolyclinicRegistration.Views;
-using System.Globalization;
-
 namespace PolyclinicRegistration;
 
-internal static class Program
+static class Program
 {
+    /// <summary>
+    ///  The main entry point for the application.
+    /// </summary>
     [STAThread]
-    private static void Main()
+    static void Main()
     {
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
+        // To customize application configuration such as set high DPI settings or default font,
+        // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-
         try
         {
-            var repository = new AppointmentRepository();
+            var repository = new ClinicRepository();
             repository.Initialize();
-            var service = new AppointmentService(repository);
-            Application.Run(new MainForm(service, repository));
+            Application.Run(new RegistrationForm(repository));
         }
-        catch (Exception error)
+        catch (Exception ex)
         {
-            MessageBox.Show(
-                "Не удалось открыть базу данных: " + error.Message,
-                "Ошибка запуска",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            MessageBox.Show($"Не удалось запустить приложение: {ex.Message}",
+                "Ошибка запуска", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-    }
+    }    
 }
