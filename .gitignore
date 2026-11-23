@@ -1,9 +1,5 @@
-**/bin/
-**/obj/
+bin/
+obj/
 .vs/
-__pycache__/
 *.user
 *.suo
-*.db
-*.db-*
-/PolyclinicRegistration_Source_Release.zip
